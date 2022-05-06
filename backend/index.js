@@ -1,5 +1,12 @@
-const http = require('http');
+const express = require('express')
+const app = express();
+const { createFolder } = require('./routes')
+const bodyParser = require('body-parser')
 
-http.createServer((req,res)=>{
-    res.end('Hello World');
-}).listen(5000,'localhost');
+const jsonParser = bodyParser.json()
+
+
+app.post('/createfolder',jsonParser,createFolder);
+app.listen(5000,()=>{
+    console.log('Server Started')
+})
