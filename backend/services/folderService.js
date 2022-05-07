@@ -22,6 +22,22 @@ const createNewFolder = async (folderName) => {
 }
 
 
+const listItems = async (path)=>{
+   let relPath = `${basePath}${path}`;
+   try{
+     let list = fs.readdirSync(relPath);
+     console.log(list);
+    //  return {
+    //      list: list
+    //  }
+   }
+   catch(err)
+   {
+     console.log(err.message)
+   }
+}
+
 module.exports = {
-    createNewFolder
+    createNewFolder,
+    listItems
 }
