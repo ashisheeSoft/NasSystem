@@ -1,5 +1,5 @@
 const fs = require('fs')
-const basePath = `D:/work/NASSystem/NasSystem/ExternalStorage`
+const basePath = `D:/Work/Personal/NasSystem/Storage`
 
 
 
