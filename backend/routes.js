@@ -1,4 +1,4 @@
-const { createNewFolder } = require('./services/createfolderService')
+const { createNewFolder,listItems } = require('./services/folderService')
 const createFolder = async (req, res) => {
     let { folderName } = req.body;
     console.log(`Creating folder of name : ${folderName}` )
@@ -13,6 +13,13 @@ const createFolder = async (req, res) => {
     }
 }
 
+const listFolder = async (req,res)=>{
+    const { relativePath } = req.query;
+    await listItems(relativePath);
+    res.send('get Query');
+}
+
 module.exports = {
-    createFolder
+    createFolder,
+    listFolder
 }
