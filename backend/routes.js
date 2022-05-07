@@ -14,9 +14,14 @@ const createFolder = async (req, res) => {
 }
 
 const listFolder = async (req,res)=>{
+    try{
     const { relativePath } = req.query;
-    await listItems(relativePath);
-    res.send('get Query');
+    let itemList = await listItems(relativePath);
+    res.status(200).send({itemList});
+    }
+    catch(err){
+        res.status(400).send(err.message);
+    }
 }
 
 module.exports = {

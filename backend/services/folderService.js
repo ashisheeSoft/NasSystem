@@ -1,5 +1,6 @@
 const fs = require('fs')
-const basePath = `D:/Work/Personal/NasSystem/Storage`
+const varPath = require('path')
+const basePath = `D:/work/NASSystem/NasSystem/Storage`
 
 
 
@@ -21,20 +22,30 @@ const createNewFolder = async (folderName) => {
     }
 }
 
+const isFile = fileName => {
+    return fs.lstatSync(fileName).isFile();
+  };
 
-const listItems = async (path)=>{
-   let relPath = `${basePath}${path}`;
-   try{
-     let list = fs.readdirSync(relPath);
-     console.log(list);
-    //  return {
-    //      list: list
-    //  }
-   }
-   catch(err)
-   {
-     console.log(err.message)
-   }
+
+const listItems = async (path) => {
+    let relPath = `${basePath}${path}`;
+    try {
+
+        let items = fs.readdirSync(relPath).map((fileName) => {
+            let fileType =  isFile(relPath+"/"+fileName) ? varPath.extname(fileName) : 'dir';
+            return {
+                itemName: fileName,
+                relativePath: varPath.join(relPath, fileName).replace(/\\/g,"/"),
+                type: fileType
+            }
+        });
+        console.log(items);
+        return items
+    }
+    catch (err) {
+        console.log(err)
+        throw new Error(err.message);
+    }
 }
 
 module.exports = {
