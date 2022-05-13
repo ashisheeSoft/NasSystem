@@ -1,4 +1,5 @@
 const { createNewFolder,listItems } = require('./services/folderService')
+const {downloadFile} =require('./services/inputOutputService');
 const createFolder = async (req, res) => {
     let { folderName } = req.body;
     console.log(`Creating folder of name : ${folderName}` )
@@ -24,7 +25,19 @@ const listFolder = async (req,res)=>{
     }
 }
 
+const download = async (req,res)=>{
+    try{
+        const { downloadPath } = req.query;
+        await downloadFile(downloadPath,res); 
+    }
+    catch(err)
+    {
+      res.status(400).send(err.message);
+    }
+}
+
 module.exports = {
     createFolder,
-    listFolder
+    listFolder,
+    download
 }
